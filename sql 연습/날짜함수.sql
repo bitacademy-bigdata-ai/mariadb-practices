@@ -31,7 +31,21 @@ order by month desc;
 select first_name,
        hire_date,
        date_add(hire_date, interval 5 year)
-	   from employees;     
+	   from employees;
+
+-- cast
+select '12345' + 10, cast('12345' as int) + 10;
+select date_format(cast('2022-10-10' as date), '%Y년 %m월 %d일');
+select cast(cast(1-2 as unsigned) as int);
+select cast(cast(1-2 as unsigned) as integer);
+select cast(cast(1-2 as unsigned) as signed);
+
+-- type
+-- 문자: varchar, char, text, CLOB(Character Large OBject)
+-- 정수: signed(unsigned), int(integer), medium int, big int
+-- 실수: float, double
+-- 시간: date, datetime
+-- LOB: CLOB, BLOB(Binary Large OBject)      
 
 
   
