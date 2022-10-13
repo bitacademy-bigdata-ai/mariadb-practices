@@ -26,13 +26,34 @@ group by emp_no;
 -- having
 -- 집계결과(결과 임시 테이블)에서 row를 선택해야 하는 경우
 -- 이미 where 절은 실행이 되었기 때문에 having 절에 이 조건을 주어야 한다.
-
   select emp_no, avg(salary) as avg_salary
     from salaries
 group by emp_no
-  having avg_salary > 60000
-order by avg_salary desc;  
+  having avg_salary > 60000;
   
+-- order by  
+  select emp_no, avg(salary) as avg_salary
+    from salaries
+group by emp_no
+  having avg_salary > 60000  
+order by avg_salary desc;  
+
+-- 예제
+-- salaries 테이블에서 사번이 10060인 직원의 사번, 급여평균과 급여총합을 출력하세요.
+
+-- 문법적으로 오류!!
+-- 의미적으로는 맞다(where)   
+select emp_no, avg(salary), sum(salary)
+  from salaries
+ where emp_no = '10060';
+ 
+-- 문법적으로 옳다
+  select emp_no, avg(salary), sum(salary)
+    from salaries
+group by emp_no
+  having emp_no = '10060';  
+ 
+ 
  
   
   
