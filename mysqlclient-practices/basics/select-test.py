@@ -1,4 +1,5 @@
 from MySQLdb import connect, OperationalError
+from MySQLdb.cursors import DictCursor
 
 try:
     # 1. 연결
@@ -11,21 +12,22 @@ try:
         charset='utf8')
 
     # 2. cursor 생성
-    cursor = db.cursor()
+    cursor = db.cursor(DictCursor)
 
     # 3. sql(delete문) 실행
-    sql = 'delete from pet where name = "성탄이"'
+    sql = 'select name, owner, species, gender, date_format(birth, "%Y-%m-%d") as birth from pet'
     count = cursor.execute(sql)
 
-    # 4. commit
-    db.commit()
+    # 4. 결과 받아오기
+    results = cursor.fetchall();
 
     # 5. 자원 정리
     cursor.close()
     db.close()
 
     # 결과 확인
-    print(f'실행결과: {"성공" if count >= 1 else "실패"}')
+    for result in results:
+        print(result)
 
 except OperationalError as e:
     # 에러 처리
