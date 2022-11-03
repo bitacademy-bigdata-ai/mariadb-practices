@@ -3,8 +3,8 @@ package com.bitacademy.emaillist.main;
 import java.util.List;
 import java.util.Scanner;
 
-import com.bitacademy.emailist.dao.EmaillistDao;
-import com.bitacademy.emiallist.vo.EmaillistVo;
+import com.bitacademy.emaillist.dao.EmaillistDao;
+import com.bitacademy.emaillist.vo.EmaillistVo;
 
 public class EmaillistApp {
 	private static Scanner scanner = null;
