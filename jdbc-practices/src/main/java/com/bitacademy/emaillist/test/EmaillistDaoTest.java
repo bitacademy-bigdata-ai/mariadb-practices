@@ -1,4 +1,4 @@
-package com.botacademy.emaillist.test;
+package com.bitacademy.emaillist.test;
 
 import java.util.List;
 
