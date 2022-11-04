@@ -33,11 +33,7 @@ public class UpdateTest01 {
 			stmt = conn.createStatement();
 			
 			//4. SQL 실행
-			String sql = 
-				"update dept" +
-				"   set name = '" + deptVo.getName() + "'" +
-			    " where no = " + deptVo.getNo();
-			
+			String sql = "update dept set name = '" + deptVo.getName() + "' where no = " + deptVo.getNo();
 			int count = stmt.executeUpdate(sql);
 			
 			//5. 결과 처리
