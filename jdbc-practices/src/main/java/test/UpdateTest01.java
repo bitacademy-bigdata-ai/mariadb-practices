@@ -40,8 +40,8 @@ public class UpdateTest01 {
 			
 			int count = stmt.executeUpdate(sql);
 			
+			//5. 결과 처리
 			result = count == 1;
-			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} catch (SQLException e) {

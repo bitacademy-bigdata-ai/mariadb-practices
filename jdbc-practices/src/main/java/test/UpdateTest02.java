@@ -2,22 +2,24 @@ package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class InsertTest01 {
+public class UpdateTest02 {
 
 	public static void main(String[] args) {
-		insert("시스템");
-		insert("마케팅");
-		insert("운영");
+		DeptVo vo = new DeptVo();
+		vo.setNo(2L);
+		vo.setName("시스템개발");
+		
+		boolean result = update(vo);
+		System.out.println(result ? "성공" : "실패");
 	}
 
-	private static Boolean insert(String name) {
+	private static boolean update(DeptVo deptVo) {
 		boolean result = false;
-		
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		
 		try {
 			//1. JDBC Driver Class Loading
@@ -27,28 +29,30 @@ public class InsertTest01 {
 			String url = "jdbc:mysql://127.0.0.1:3306/webdb?charset=utf8";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
-			//3. Statement 생성
-			stmt = conn.createStatement();
-			
-			//4. SQL 실행
+			//3. Statement 준비
 			String sql = 
-				" insert" +
-				"   into dept" +
-				" values (null, '" + name + "')";
+					"update dept" +
+					"   set name = ?" +
+				    " where no = ?";
+			pstmt = conn.prepareStatement(sql);
 			
-			int count = stmt.executeUpdate(sql);
+			//4. Binding
+			pstmt.setString(1, deptVo.getName());
+			pstmt.setLong(2, deptVo.getNo());
 			
-			//5. 결과 처리
+			//5. SQL 실행
+			int count = pstmt.executeUpdate();
+
+			//6. 결과 처리
 			result = count == 1;
-			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
 		} finally {
 			try {
-				if(stmt != null) {
-					stmt.close();
+				if(pstmt != null) {
+					pstmt.close();
 				}
 				
 				if(conn != null) {
@@ -61,4 +65,7 @@ public class InsertTest01 {
 		
 		return result;
 	}
+	
+	
+
 }
