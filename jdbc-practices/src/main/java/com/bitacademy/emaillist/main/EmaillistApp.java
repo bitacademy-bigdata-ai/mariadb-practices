@@ -31,6 +31,12 @@ public class EmaillistApp {
 	}
 
 	private static void doDelete() {
+		System.out.print("이메일:");
+		String email = scanner.nextLine();
+		
+		new EmaillistDao().deleteByEmail(email);
+		
+		doList();
 	}
 
 	private static void doAdd() {
@@ -43,7 +49,12 @@ public class EmaillistApp {
 		System.out.print("이메일:");
 		String email = scanner.nextLine();
 
-		System.out.println(firstName + ":" + lastName + ":" + email);
+		EmaillistVo vo = new EmaillistVo();
+		vo.setFirstName(firstName);
+		vo.setLastName(lastName);
+		vo.setEmail(email);
+		
+		new EmaillistDao().insert(vo);
 		
 		doList();
 	}
